@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DataService } from 'src/shared/services/data.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-payment',
@@ -10,13 +12,16 @@ export class PaymentComponent implements OnInit {
 
   paymentForm: FormGroup;
   submitted = false;
-
-  constructor(private formBuilder: FormBuilder) { }
+  myTap: number;
+  constructor(private formBuilder: FormBuilder, private dataService: DataService, private router: Router) { }
 
   ngOnInit() {
     this.paymentForm = this.formBuilder.group({
-      firstName: ['', Validators.required]
+      number: ['', Validators.required],
+      name: ['', Validators.required],
+      expirationDate: ['', Validators.required]
     });
+    this.dataService.currentTap.subscribe(data => this.myTap = data);
   }
 
   // convenience getter for easy access to form fields
@@ -30,7 +35,7 @@ export class PaymentComponent implements OnInit {
           return;
       }
 
-      alert('SUCCESS!! :-)')
+      this.router.navigate(['accepted']);
   }
 
 }

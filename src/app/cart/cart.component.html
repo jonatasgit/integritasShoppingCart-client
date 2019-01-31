@@ -1,0 +1,12 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">My Cart - {{ myTap | currency }}</li>
+  </ol>
+</nav>
+<ul class="list-group" *ngFor="let product of myOrder.products">
+  <li class="list-group-item">{{ product.name }} - {{ product.price | currency }}
+    <button type="button" class="btn btn-danger btn-sm" style="margin-left: 90%;" (click)="onClickRemoveProduct(product);">-</button>
+  </li>
+</ul>
+<button type="button" class="btn btn-primary btn-block" [disabled]="myTap == 0" [routerLink]="'/checkout'">Proceed to
+  checkout</button>
